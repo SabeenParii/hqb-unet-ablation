@@ -1,0 +1,10 @@
+tensorflow==2.20.0
+numpy>=2.1
+pandas>=2.2
+scipy>=1.16
+scikit-learn
+opencv-python-headless
+matplotlib
+pytest
+# optional, not used for the reported runs:
+# pennylane

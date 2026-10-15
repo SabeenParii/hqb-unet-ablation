@@ -1,0 +1,16 @@
+# never commit data, masks, weights or results
+data/
+results/
+*.jpg
+*.jpeg
+*.png
+*.bmp
+*.dcm
+*.h5
+*.keras
+*.npy
+*.npz
+manifest*.csv
+__pycache__/
+.pytest_cache/
+.ipynb_checkpoints/
