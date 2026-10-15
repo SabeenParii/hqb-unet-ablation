@@ -1,5 +1,7 @@
 # Does the Quantum Circuit Help? Parameter-matched ablation of a quantum-bottleneck U-Net
 
+[![DOI](https://zenodo.org/badge/DOI/10.5281/zenodo.23390486.svg)](https://doi.org/10.5281/zenodo.23390486)
+
 Code for the manuscript *"Does the Quantum Circuit Help? Parameter-Matched Ablation of a
 Quantum-Bottleneck U-Net on Proxy-Labeled Mammograms"* (S. Parii, S. Tummala, A. Tujammal, A. Iqbal).
 
@@ -79,6 +81,10 @@ exactly four circuit parameters (the final-layer R_z(ω) rotations) are inert, s
 Python 3.13, TensorFlow/Keras 2.20.0, NumPy 2.1.3, pandas 2.2.3, SciPy 1.16.3, Google Colab with an
 NVIDIA Tesla T4 GPU. The quantum backend for all reported runs is `"tf"`; the optional PennyLane
 layer in `models.py` was not used.
+
+## Citation
+
+S. Parii, "hqb-unet-ablation: Source code for the parameter-matched ablation of a quantum-bottleneck U-Net (v1.0)," Zenodo, 2026, doi: 10.5281/zenodo.23390486.
 
 ## License
 
