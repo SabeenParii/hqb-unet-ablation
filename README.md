@@ -1,0 +1,85 @@
+# Does the Quantum Circuit Help? Parameter-matched ablation of a quantum-bottleneck U-Net
+
+Code for the manuscript *"Does the Quantum Circuit Help? Parameter-Matched Ablation of a
+Quantum-Bottleneck U-Net on Proxy-Labeled Mammograms"* (S. Parii, S. Tummala, A. Tujammal, A. Iqbal).
+
+The package `qseg` trains and evaluates five models on the same patient-level split and with
+identical training settings:
+
+| Name in code       | Name in paper | Description |
+|--------------------|---------------|-------------|
+| `unet`             | C-UNet        | Classical U-Net (64–1024 filters) |
+| `attention_unet`   | Att-UNet      | Attention U-Net (16–256 filters) |
+| `hybrid_quantum`   | HQB-UNet      | U-Net with a simulated 4-qubit circuit at the globally pooled bottleneck |
+| `hybrid_classical` | HQB-cls       | Ablation: circuit replaced by Dense(4, tanh) (parameter-matched) |
+| `hybrid_none`      | HQB-free      | Ablation: circuit removed |
+
+The circuit is simulated exactly (noise-free state vector) in TensorFlow (`qseg/quantum_sim.py`)
+and checked against an independent NumPy reference (`qseg/quantum_reference.py`).
+
+## Data
+
+**The mammograms are not included.** They are private, de-identified images provided by a hospital
+and cannot be redistributed; requests go to the corresponding author and need permission from the
+data provider. No images, masks, model weights or patient identifiers are in this repository.
+The proxy masks are generated from the images by `qseg/data_prep.py` (Otsu threshold, opening and
+closing, largest contour).
+
+## Structure
+
+```
+qseg/
+  config.py             all settings (single source of truth)
+  data_prep.py          de-duplication, proxy masks, patient-level split (manifest.csv)
+  datasets.py           tf.data pipeline and online augmentation
+  models.py             C-UNet, Att-UNet, HQB-UNet and the two ablations
+  quantum_sim.py        exact state-vector simulation of the 4-qubit circuit (TF and NumPy)
+  quantum_reference.py  independent NumPy reference of the circuit (and of the earlier, inert circuit)
+  train.py              training and test-set evaluation of one model and seed
+  evaluation.py         pixel-level metrics, per-image Dice/IoU, ROC-AUC, PR-AUC, ECE
+  final_stats.py        hierarchical and patient-only bootstrap, equivalence bounds, Wilcoxon + Holm
+  stats.py, figures.py  aggregation helpers and architecture diagrams
+tests/                  unit tests (data preparation, circuit vs. reference, gradients, statistics)
+```
+
+## Usage
+
+```bash
+pip install -r requirements.txt
+```
+
+```python
+from qseg.config import Config
+from qseg.data_prep import prepare_dataset
+from qseg.train import run_all
+
+cfg = Config(raw_image_dir="path/to/images", work_dir="results")
+prepare_dataset(cfg)          # proxy masks + patient-level split (split seed 42)
+run_all(cfg)                  # 5 models x seeds 0, 1, 2
+```
+
+Statistics reported in the paper (10,000 bootstrap replicates):
+
+```bash
+python -m qseg.final_stats results results/final_stats_output.txt
+```
+
+Tests:
+
+```bash
+python -m pytest -q tests
+```
+
+`tests/test_tf_circuit.py` checks that the TensorFlow circuit matches the NumPy reference and that
+exactly four circuit parameters (the final-layer R_z(ω) rotations) are inert, so the circuit has
+20 effective parameters.
+
+## Environment used for the reported runs
+
+Python 3.13, TensorFlow/Keras 2.20.0, NumPy 2.1.3, pandas 2.2.3, SciPy 1.16.3, Google Colab with an
+NVIDIA Tesla T4 GPU. The quantum backend for all reported runs is `"tf"`; the optional PennyLane
+layer in `models.py` was not used.
+
+## License
+
+MIT (see `LICENSE`).
