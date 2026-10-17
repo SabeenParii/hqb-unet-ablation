@@ -37,11 +37,13 @@ qseg/
   models.py             C-UNet, Att-UNet, HQB-UNet and the two ablations
   quantum_sim.py        exact state-vector simulation of the 4-qubit circuit (TF and NumPy)
   quantum_reference.py  independent NumPy reference of the circuit (and of the earlier, inert circuit)
+  base_ansatz_check.py  Jacobian-rank check of our circuit and of the base-design ansatz (Lim & Kim 2026)
   train.py              training and test-set evaluation of one model and seed
   evaluation.py         pixel-level metrics, per-image Dice/IoU, ROC-AUC, PR-AUC, ECE
   final_stats.py        hierarchical and patient-only bootstrap, equivalence bounds, Wilcoxon + Holm
   stats.py, figures.py  aggregation helpers and architecture diagrams
-tests/                  unit tests (data preparation, circuit vs. reference, gradients, statistics)
+tests/                  unit tests (data preparation, circuit vs. reference, gradients, statistics;
+                        test_base_ansatz.py: Jacobian ranks 20/24 and 88/96)
 ```
 
 ## Usage
@@ -75,6 +77,26 @@ python -m pytest -q tests
 `tests/test_tf_circuit.py` checks that the TensorFlow circuit matches the NumPy reference and that
 exactly four circuit parameters (the final-layer R_z(ω) rotations) are inert, so the circuit has
 20 effective parameters.
+
+## Check of the base-design ansatz
+
+The circuit follows the base design of J. Lim and S. Kim, "Hybrid quantum-classical UNet for image
+segmentation: Breaking the parameter scaling barrier," *IEEE Access*, vol. 14, pp. 33934-33947, 2026,
+doi: [10.1109/ACCESS.2026.3669206](https://doi.org/10.1109/ACCESS.2026.3669206).
+`qseg/base_ansatz_check.py` (NumPy only, a few seconds) simulates both circuits exactly and stacks
+the central finite-difference Jacobians d<Z_i>/dw over random inputs (uniform in [-1, 1]) and random
+parameter settings (uniform in [0, 2π), fixed seeds): our circuit (4 qubits, 2 layers, R_y(π/2·x)
+encoding; 64 inputs × 3 settings) and Lim & Kim's ansatz as specified in their eqs. (3)-(8)
+(8 qubits, 4 layers, R_y(x) encoding, Rot(θ, φ, λ) = R_z(φ) R_y(θ) R_z(λ) and a CNOT ring;
+24 inputs × 2 settings).
+
+```bash
+python -m qseg.base_ansatz_check
+```
+
+Expected output: rank **20 of 24** for our circuit (zero columns: the four final-layer R_z(ω)) and
+rank **88 of 96** for Lim & Kim's ansatz (zero columns: the eight final-layer R_z(φ), the rotations
+applied last, directly before the Z measurement). `tests/test_base_ansatz.py` asserts these values.
 
 ## Environment used for the reported runs
 
