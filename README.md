@@ -2,8 +2,8 @@
 
 [![DOI](https://zenodo.org/badge/DOI/10.5281/zenodo.23390486.svg)](https://doi.org/10.5281/zenodo.23390486)
 
-Code for the manuscript *"Does the Quantum Circuit Help? Parameter-Matched Ablation of a
-Quantum-Bottleneck U-Net on Proxy-Labeled Mammograms"* (S. Parii, S. Tummala, A. Tujammal, A. Iqbal).
+Code for the manuscript *"Parameter-Matched Ablation of a Quantum-Bottleneck U-Net on Proxy-Labeled
+Mammograms"* (S. Parii, S. Tummala, A. Iqbal, R. Ashraf, F. Aadil).
 
 The package `qseg` trains and evaluates five models on the same patient-level split and with
 identical training settings:
@@ -42,6 +42,9 @@ qseg/
   evaluation.py         pixel-level metrics, per-image Dice/IoU, ROC-AUC, PR-AUC, ECE
   final_stats.py        hierarchical and patient-only bootstrap, equivalence bounds, Wilcoxon + Holm
   stats.py, figures.py  aggregation helpers and architecture diagrams
+scripts/
+  severing_test.py      bottleneck-severing test (inference only): replaces the four-value code with the
+                        mean training code (const) or a random training image's code (swap)
 tests/                  unit tests (data preparation, circuit vs. reference, gradients, statistics;
                         test_base_ansatz.py: Jacobian ranks 20/24 and 88/96)
 ```
@@ -78,10 +81,18 @@ python -m pytest -q tests
 exactly four circuit parameters (the final-layer R_z(ω) rotations) are inert, so the circuit has
 20 effective parameters.
 
+## Bottleneck-severing test
+
+`scripts/severing_test.py` loads the nine trained hybrid runs, replaces the four-value bottleneck code
+at inference time (const: mean code of the training images; swap: code of a random training image)
+and reports the drop in per-image Dice with a hierarchical bootstrap over patients and seeds and
+Holm correction. It first checks that the network split at the code reproduces the full network and
+the saved per-image Dice. Written for Google Colab (see the paths at the top of the script).
+
 ## Check of the base-design ansatz
 
-The circuit follows the base design of J. Lim and S. Kim, "Hybrid quantum-classical UNet for image
-segmentation: Breaking the parameter scaling barrier," *IEEE Access*, vol. 14, pp. 33934-33947, 2026,
+The circuit follows the base design of S.-C. Lim and J.-C. Kim, "Hybrid quantum-classical UNet for image
+segmentation: Breaking the parameter scaling barrier," *IEEE Access*, vol. 14, pp. 33935-33947, 2026,
 doi: [10.1109/ACCESS.2026.3669206](https://doi.org/10.1109/ACCESS.2026.3669206).
 `qseg/base_ansatz_check.py` (NumPy only, a few seconds) simulates both circuits exactly and stacks
 the central finite-difference Jacobians d<Z_i>/dw over random inputs (uniform in [-1, 1]) and random
