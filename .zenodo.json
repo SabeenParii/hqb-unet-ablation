@@ -1,0 +1,11 @@
+{
+  "title": "hqb-unet-ablation: Source code for the parameter-matched ablation of a quantum-bottleneck U-Net",
+  "upload_type": "software",
+  "creators": [
+    {
+      "name": "Parii, Sabeen",
+      "affiliation": "Wuhan University of Technology"
+    }
+  ],
+  "license": "MIT"
+}
