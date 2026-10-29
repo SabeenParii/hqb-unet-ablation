@@ -1,0 +1,21 @@
+
+Paper 1 · M3 robustness analysis (training-policy and seed sensitivity of the circuit contrasts)
+
+PRE-SPECIFIED on 18 October 2026, before any of these runs was trained or any new test result was seen.
+  Models : hybrid_quantum (HQB-UNet), hybrid_classical (HQB-cls), hybrid_none (HQB-free)
+  Seeds  : 0, 1, 2 (re-runs) and 3, 4 (new); all 15 runs are reported, none is discarded.
+  Training: shared settings of the paper (Adam 1e-4, ReduceLROnPlateau x0.5 / patience 4 / min 1e-7, batch 16,
+            BCE + soft Dice, fp32, same augmentation and seed handling), 50 epochs WITHOUT early stopping.
+  From the single trajectory of each run, three checkpoints are evaluated on the 84 test images:
+    A   'es'    : the weights the original rule would have tested (early stopping on val_loss, patience 10,
+                  best weights restored) - reproduces the paper's policy
+    B1  'final' : epoch-50 weights (fixed training budget)                        <- PRIMARY for M3
+    B2  'min20' : lowest val_loss among epochs 20-50 (minimum training period, then validation selection)
+  Primary estimand: mean per-image Dice of HQB-UNet - HQB-cls and HQB-UNet - HQB-free under B1,
+  5 seeds x 20 test patients, crossed hierarchical bootstrap (10,000 replicates). A and B2 are secondary.
+
+READ ONLY for QSEG_FINAL (the processed 256x256 data are copied to the Colab VM for speed).
+Outputs (numbers only, no images, no weights) go to MyDrive/P1_m3/runs/<model>_seed<k>/.
+The script is resumable: finished runs are skipped. Expected time on a T4: about 25-35 min per run.
+
+written (UTC): 2026-10-18 06:54:13

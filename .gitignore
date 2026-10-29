@@ -14,3 +14,8 @@ manifest*.csv
 __pycache__/
 .pytest_cache/
 .ipynb_checkpoints/
+paper_v2/analysis/data/
+paper_v2/analysis/figs/
+paper_v2/analysis/*.csv
+paper_v2/analysis/*.json
+__pycache__/

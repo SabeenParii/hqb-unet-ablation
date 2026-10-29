@@ -1,0 +1,23 @@
+Paper 1 · v2 experiments (convergence and bottleneck dependence), written before any of these runs was trained.
+
+Motivation (from the first analysis): hybrid runs were trained for at most 50 epochs with a learning-rate schedule on the
+validation loss, several stopped very early, and training curves were still improving; the bottleneck code was hardly used
+because the skip connections suffice for the rule-based target.
+
+E1 (convergence): HQB-UNet, HQB-cls, HQB-free with skip connections (Paper 1 architectures, unchanged), seeds 0-4.
+E2 (bottleneck dependence): the same three models WITHOUT skip connections (all information passes the four-value code),
+    seeds 0-2.
+Training (identical for every run): Adam 1e-4, batch 16, BCE + soft Dice, fp32, Paper 1 augmentation and seed handling,
+    up to 200 epochs; ReduceLROnPlateau on the TRAINING loss (factor 0.5, patience 4, min 1e-7); early stopping on the
+    validation loss (patience 10, active from epoch 15) with the best validation weights restored and tested.
+Evaluation of every run: 84 test images (20 patients); external DMID set (rule-based masks, no fine-tuning);
+    external mini-MIAS set scored against EXPERT-corrected breast + pectoral masks (Zenodo 10149914), no fine-tuning:
+    per-image Dice; severing of the four-value code (mean training code; codes of random training images, assignments
+    A1-A5 = numpy default_rng(0..4)); for HQB-UNet, finite-shot readout (100, 1,000 and 10,000 shots, 5 draws each).
+Primary estimands: mean per-image test Dice of HQB-UNet - HQB-cls and HQB-UNet - HQB-free, separately in E1 and E2,
+    crossed hierarchical bootstrap over patients and seeds (10,000 replicates).
+Secondary: contrasts on mini-MIAS against expert masks and on DMID; severing drops (E2 serves as a positive control for the severing test);
+    shot-noise sensitivity.
+All runs are reported; none is discarded. Weights are kept only on the VM and deleted after evaluation;
+    test, DMID and mini-MIAS probability maps (uint8) are kept for a later comparison with further reference annotations.
+written (UTC): 2026-10-24 06:25:30

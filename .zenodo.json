@@ -7,5 +7,7 @@
       "affiliation": "Wuhan University of Technology"
     }
   ],
-  "license": "MIT"
+  "license": "MIT",
+  "version": "v2.0.0",
+  "description": "Source code of the manuscript \"A quantum circuit in a hybrid U-Net adds no measurable benefit over a parameter-matched classical layer in mammogram segmentation\": the qseg package and, from v2.0.0, all notebooks, scripts, prespecified protocols and statistical analyses of the revised manuscript (folder paper_v2). No images, masks, weights or patient identifiers are included."
 }

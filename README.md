@@ -1,9 +1,17 @@
-# Does the Quantum Circuit Help? Parameter-matched ablation of a quantum-bottleneck U-Net
+# Does the quantum circuit help? Parameter-matched ablation of a quantum-bottleneck U-Net
 
 [![DOI](https://zenodo.org/badge/DOI/10.5281/zenodo.23390486.svg)](https://doi.org/10.5281/zenodo.23390486)
 
-Code for the manuscript *"Parameter-Matched Ablation of a Quantum-Bottleneck U-Net on Proxy-Labeled
-Mammograms"* (S. Parii, S. Tummala, A. Iqbal, R. Ashraf, F. Aadil).
+Code for the manuscript *"A quantum circuit in a hybrid U-Net adds no measurable benefit over a parameter-matched
+classical layer in mammogram segmentation"* (S. Parii, S. Tummala, A. Iqbal, R. Ashraf, F. Aadil).
+Versions up to v1.2 accompany the earlier title *"Parameter-Matched Ablation of a Quantum-Bottleneck U-Net on
+Proxy-Labeled Mammograms"*.
+
+**v2.0.0** adds the folder [`paper_v2/`](paper_v2/README.md) with every notebook and script of the revised manuscript:
+retraining with and without skip connections (E1, E2), the trigonometric classical control (HQB-trig), the five-seed
+analysis, the code-replacement test and its positive controls, the external sets (DMID, mini-MIAS with expert masks),
+the scoring against two readers' manual outlines, the prespecified protocols with their time stamps, and the statistics,
+supplementary tables and Figure 4.
 
 The package `qseg` trains and evaluates five models on the same patient-level split and with
 identical training settings:
@@ -15,6 +23,7 @@ identical training settings:
 | `hybrid_quantum`   | HQB-UNet      | U-Net with a simulated 4-qubit circuit at the globally pooled bottleneck |
 | `hybrid_classical` | HQB-cls       | Ablation: circuit replaced by Dense(4, tanh) (parameter-matched) |
 | `hybrid_none`      | HQB-free      | Ablation: circuit removed |
+| `ht` (in `paper_v2`) | HQB-trig    | Control: circuit replaced by z = tanh(A cos(π/2·x + φ)) (20 parameters) |
 
 The circuit is simulated exactly (noise-free state vector) in TensorFlow (`qseg/quantum_sim.py`)
 and checked against an independent NumPy reference (`qseg/quantum_reference.py`).
@@ -45,6 +54,7 @@ qseg/
 scripts/
   severing_test.py      bottleneck-severing test (inference only): replaces the four-value code with the
                         mean training code (const) or a random training image's code (swap)
+paper_v2/               notebooks, scripts, protocols and statistics of the revised manuscript (see its README)
 tests/                  unit tests (data preparation, circuit vs. reference, gradients, statistics;
                         test_base_ansatz.py: Jacobian ranks 20/24 and 88/96)
 ```
@@ -117,7 +127,7 @@ layer in `models.py` was not used.
 
 ## Citation
 
-S. Parii, "hqb-unet-ablation: Source code for the parameter-matched ablation of a quantum-bottleneck U-Net (v1.0)," Zenodo, 2026, doi: 10.5281/zenodo.23390486.
+S. Parii, "hqb-unet-ablation: Source code for the parameter-matched ablation of a quantum-bottleneck U-Net," Zenodo, 2026, doi: 10.5281/zenodo.23390486 (all versions; the DOI of each version is listed on the Zenodo record).
 
 ## License
 

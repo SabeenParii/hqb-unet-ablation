@@ -1,0 +1,18 @@
+Paper 1 · v3 experiments (trigonometric classical control; two more seeds without skip connections), written before any of these runs was trained.
+
+Motivation (from the v2 analysis, E1/E2): (i) the classical control Dense(4, tanh) matches the circuit in parameter count but not in
+function class; the circuit output is a trigonometric function of its angle-encoded inputs. (ii) E2 (no skip connections) had only
+three seeds and wide intervals.
+
+New model HQB-trig: identical to HQB-UNet except that the circuit is replaced by a 20-parameter trigonometric layer
+    theta = (pi/2) x  (same angle encoding as the circuit),  z = tanh(A cos(theta + phi)),  A in R^{4x4}, phi in R^4  (16 + 4 = 20 parameters),
+    A Glorot uniform, phi uniform on [0, 2 pi) (as the circuit angles).
+Runs: E1 (with skip connections) HQB-trig seeds 0-4; E2 (without skip connections) HQB-trig seeds 0-4, and HQB-UNet, HQB-cls, HQB-free seeds 3-4
+    (extending E2 to seeds 0-4). 16 runs.
+Training, evaluation and outputs: exactly as in the v2 specification (PROTOCOL_prespecified.txt), unchanged.
+Primary estimands: HQB-UNet - HQB-trig in mean per-image test Dice, separately in E1 (seeds 0-4) and E2 (seeds 0-4); and, in E2 with seeds 0-4,
+    HQB-UNet - HQB-cls and HQB-UNet - HQB-free; crossed hierarchical bootstrap over patients and seeds (10,000 replicates); Holm over these
+    four contrasts. The E2 three-seed results already reported remain reported; the five-seed E2 results are reported alongside them.
+Secondary: as in v2 (external sets, code replacement, finite shots for HQB-UNet).
+All runs are reported; none is discarded.
+written (UTC): 2026-10-25 15:27:35
