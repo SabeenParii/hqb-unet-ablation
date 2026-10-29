@@ -1,6 +1,6 @@
 # Does the quantum circuit help? Parameter-matched ablation of a quantum-bottleneck U-Net
 
-[![DOI](https://zenodo.org/badge/DOI/10.5281/zenodo.23390486.svg)](https://doi.org/10.5281/zenodo.23390486)
+[![DOI](https://zenodo.org/badge/DOI/10.5281/zenodo.23758772.svg)](https://doi.org/10.5281/zenodo.23758772)
 
 Code for the manuscript *"A quantum circuit in a hybrid U-Net adds no measurable benefit over a parameter-matched
 classical layer in mammogram segmentation"* (S. Parii, S. Tummala, A. Iqbal, R. Ashraf, F. Aadil).
@@ -127,7 +127,7 @@ layer in `models.py` was not used.
 
 ## Citation
 
-S. Parii, "hqb-unet-ablation: Source code for the parameter-matched ablation of a quantum-bottleneck U-Net," Zenodo, 2026, doi: 10.5281/zenodo.23390486 (all versions; the DOI of each version is listed on the Zenodo record).
+S. Parii, "hqb-unet-ablation: Source code for the parameter-matched ablation of a quantum-bottleneck U-Net (v2.0.0)," Zenodo, 2026, doi: 10.5281/zenodo.23758772. Earlier versions: v1.2 10.5281/zenodo.23437757, v1.1 10.5281/zenodo.23434946, v1.0 10.5281/zenodo.23390486.
 
 ## License
 
