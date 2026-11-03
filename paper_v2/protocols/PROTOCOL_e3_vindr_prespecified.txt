@@ -1,0 +1,36 @@
+Paper 1 - experiment E3 (training on radiologist breast masks), written before any of these runs was trained.
+
+Question: does the four-qubit circuit change segmentation accuracy relative to parameter-matched controls when the networks are
+trained on expert (radiologist) masks of a public full-field digital mammography data set instead of rule-based masks of one private
+hospital set?
+Training data: VinDr-Mammo (PhysioNet, version 1.0.0; credentialed access under its data use agreement) images that carry the expert
+radiologist breast masks of the UEF breast-density data set (Mendeley Data 10.17632/tdx3h2fn9v.5, CC BY-NC 4.0): 596 images of 573
+exams. Images: DICOM, MONOCHROME1 inverted, intensity window 1st-99.5th percentile of the non-background pixels, Paper 1 preprocessing
+(padding away from the chest wall to a square, 256 x 256). Masks: thresholded at 127, same geometry. Target: breast region without the pectoral muscle; the radiologist masks exclude the pectoral muscle in MLO views (P1-27d: mask coverage of the upper chest-wall corner of MLO views median 0.0, and overlay sheet), so the target is the breast region without the pectoral muscle, and every external reference is used in the same region.
+Folds: exams (VinDr study_id) shuffled once with numpy RandomState(42) and dealt round-robin to five folds; for fold k the test set is
+fold k, the validation set (early stopping) fold k+1 (mod 5) and the training set the other three folds, so every image is tested
+exactly once per seed and no exam contributes to two roles.
+Models: HQB-UNet (four-qubit circuit), HQB-cls (Dense(4, tanh)), HQB-trig (20-parameter trigonometric map) and HQB-free (no 4-to-4
+map), with skip connections, architectures of E1 unchanged; seeds 0-4 in every fold: 4 x 5 x 5 = 100 runs. Matched initialization:
+every variant first builds its own model, then all layers it shares with HQB-UNet are overwritten with the initial weights of the
+HQB-UNet built with the same seed (a fingerprint of these initial weights is recorded for every run). The random draws of the
+4-to-4 map do not shift any later draw, so decoder initialization and dropout streams are identical across variants. Data order,
+augmentation and dropout are fixed by the seed. A run whose validation loss is never finite is recorded as failed and reported.
+Training: exactly as E1 (Adam 1e-4, batch 16, BCE + soft Dice, fp32, Paper 1 augmentation, up to 200 epochs, learning rate halved
+after 4 epochs without improvement of the training loss (minimum 1e-7), early stopping on the validation loss from epoch 15 with
+patience 10, lowest-validation-loss weights evaluated). Threshold 0.5. No hyperparameter is tuned on E3 data.
+Primary estimands: HQB-UNet - HQB-cls, HQB-UNet - HQB-trig and HQB-UNet - HQB-free in mean per-image Dice against the radiologist
+masks over all 596 images, each image scored by the model of the fold in which it was tested (out-of-fold). Uncertainty: crossed
+hierarchical bootstrap over exams and seeds (10,000 replicates, numpy default_rng(0)), 95% percentile interval and two-sided bootstrap
+P; Holm over the three contrasts. A contrast is called resolved if its Holm-adjusted P < 0.05. Equivalence within +/-0.01 Dice is
+concluded if the 90% interval lies inside +/-0.01. Every fold and every seed is also reported separately.
+Secondary, external (no fine-tuning; for every image and seed, Dice is averaged over the five fold models), same three contrasts,
+Holm within each reference set, in the target region:
+  (1) mini-MIAS, 322 images of 161 women, expert-corrected masks (Verboom et al., Zenodo 10.5281/zenodo.10149914; orientation
+      verified visually), women as clusters;
+  (2) the 84 hospital test images, manual outlines of reader 1 (all 84) and reader 2 (subset), patients as clusters.
+Also reported: the other region of each reference (with/without pectoral muscle), model levels, code replacement at test time
+(constant code = mean training code; codes of other training images, five donor draws), finite-shot readout of HQB-UNet (100, 1,000,
+10,000 shots), seed-sensitivity checks (independent seed resampling, t interval over seed-level differences, leave one seed out).
+All runs are reported; none is discarded. Weights are deleted after evaluation; probability maps (uint8) are kept.
+written (UTC): 2026-10-30 06:47:56

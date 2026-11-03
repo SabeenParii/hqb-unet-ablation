@@ -19,6 +19,7 @@ before any of its runs was trained.
 | `PROTOCOL_m3_five_seeds.txt` | 2026-10-18 06:54:13 | five seeds, three checkpoint policies (`scripts/p1_m3_robustness.py`) |
 | `PROTOCOL_v2_E1_E2.txt` | 2026-10-24 06:25:30 | E1 (with skip connections) and E2 (without), primary contrasts |
 | `PROTOCOL_v3_trig_control.txt` | 2026-10-25 15:27:35 | trigonometric control HQB-trig, E2 seeds 3–4, Holm family |
+| `PROTOCOL_e3_vindr_prespecified.txt` | 2026-10-30 06:47:56 | E3: four variants trained on radiologist breast masks of VinDr-Mammo (five folds x five seeds), equivalence margin ±0.01 |
 
 ## Notebooks (`notebooks/`, Google Colab; outputs removed)
 
@@ -35,6 +36,13 @@ Run in this order. Paths at the top of each notebook refer to Google Drive (`MyD
 | `P1_24_consolidate.ipynb` | CPU | per-image results of all runs (`p1all_*.csv.gz`) |
 | `P1_23_annot_score.ipynb` | CPU | rule and every run scored against the reader-1 outlines (84 test images) |
 | `P1_25_reader2.ipynb` | CPU | reader-2 outlines (20 images): masks, inter-reader agreement, scores. The list of the 20 images holds coded patient identifiers and is read from a private file in Drive (`annot_test/reader2_selection.csv`) |
+| `P1_27c_e3_vindr.ipynb` | CPU | E3 data: VinDr-Mammo images with the radiologist breast masks (596 images, 573 examinations), five folds by examination; requires credentialed PhysioNet access |
+| `P1_27d_uef_mask_check.ipynb` | CPU | check that the radiologist masks exclude the pectoral muscle (target region) |
+| `P1_27b_e3_data_mias.ipynb` | CPU | mini-MIAS inputs and expert masks for E3 |
+| `P1_28r_e3_vindr_A.ipynb` … `_D` | T4 GPU | E3 training and evaluation (100 runs; resumable, sessions share the work through lock files). `P1_28v_*` are the same notebooks without resumption |
+| `P1_27e_e3_reader2.ipynb` | CPU | reader-2 masks at model resolution and post-hoc reader-2 scores of all E3 runs from the stored probability maps |
+| `P1_30_rule_vs_final.ipynb` | CPU | labelling rule against the final mini-MIAS expert masks |
+| `P1_31_e3_analysis.ipynb` | CPU | prespecified E3 analysis; outputs in `results/e3/` |
 
 ## Scripts (`scripts/`, Google Colab)
 

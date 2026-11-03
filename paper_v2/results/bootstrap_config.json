@@ -1,0 +1,21 @@
+{
+ "replicates": 10000,
+ "rng": "numpy.random.default_rng(0)",
+ "percentile_ci": [
+  2.5,
+  97.5
+ ],
+ "p_value": "min(1, 2*min(P*(d<=0), P*(d>=0))), floor 1/B",
+ "clusters": {
+  "hospital test set": "patients (20)",
+  "DMID": "images (no patient identifiers in the public record)",
+  "mini-MIAS": "women (161; images 2k-1 and 2k)"
+ },
+ "seeds": "resampled with replacement, crossed with clusters; a resampled seed applies to both models of a contrast",
+ "sensitivity": [
+  "seeds resampled independently per model",
+  "t interval over seed-level differences (df = n-1)",
+  "leave one seed out"
+ ],
+ "multiplicity": "Holm within each prespecified family (see Supplementary Table S17)"
+}

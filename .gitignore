@@ -19,3 +19,6 @@ paper_v2/analysis/figs/
 paper_v2/analysis/*.csv
 paper_v2/analysis/*.json
 __pycache__/
+
+# public, aggregate or public-data results of the manuscript (no images, masks, weights or patient identifiers)
+!paper_v2/results/

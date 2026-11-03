@@ -7,6 +7,8 @@ classical layer in mammogram segmentation"* (S. Parii, S. Tummala, A. Iqbal, R. 
 Versions up to v1.2 accompany the earlier title *"Parameter-Matched Ablation of a Quantum-Bottleneck U-Net on
 Proxy-Labeled Mammograms"*.
 
+**v2.1.0** adds experiment E3 (the four hybrid variants trained on radiologist breast masks of VinDr-Mammo, five-fold cross-validation, 100 runs): its prespecified protocol, notebooks and aggregate results ([`paper_v2/results/e3/`](paper_v2/results/e3/README.md)).
+
 **v2.0.0** adds the folder [`paper_v2/`](paper_v2/README.md) with every notebook and script of the revised manuscript:
 retraining with and without skip connections (E1, E2), the trigonometric classical control (HQB-trig), the five-seed
 analysis, the code-replacement test and its positive controls, the external sets (DMID, mini-MIAS with expert masks),
