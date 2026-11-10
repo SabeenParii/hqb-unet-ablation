@@ -2,10 +2,12 @@
 
 [![DOI](https://zenodo.org/badge/DOI/10.5281/zenodo.23926304.svg)](https://doi.org/10.5281/zenodo.23926304)
 
-Code for the manuscript *"A quantum circuit in a hybrid U-Net adds no measurable benefit over a parameter-matched
-classical layer in mammogram segmentation"* (S. Parii, S. Tummala, A. Iqbal, R. Ashraf, F. Aadil).
+Code for the manuscript *"A quantum bottleneck in a hybrid U-Net adds no measurable benefit over parameter-matched
+classical layers in breast-region segmentation of mammograms"* (S. Parii, S. Tummala, A. Iqbal, R. Ashraf, F. Aadil).
 Versions up to v1.2 accompany the earlier title *"Parameter-Matched Ablation of a Quantum-Bottleneck U-Net on
 Proxy-Labeled Mammograms"*.
+
+**v2.2.0** adds experiment W1 (HQB-UNet, HQB-cls and HQB-trig retrained with a faster-learning four-to-four mapping, 15 runs): its prespecified protocol, notebooks and aggregate results ([`paper_v2/results/w1/`](paper_v2/results/w1/README.md)).
 
 **v2.1.0** adds experiment E3 (the four hybrid variants trained on radiologist breast masks of VinDr-Mammo, five-fold cross-validation, 100 runs): its prespecified protocol, notebooks and aggregate results ([`paper_v2/results/e3/`](paper_v2/results/e3/README.md)).
 

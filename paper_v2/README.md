@@ -20,6 +20,7 @@ before any of its runs was trained.
 | `PROTOCOL_v2_E1_E2.txt` | 2026-10-24 06:25:30 | E1 (with skip connections) and E2 (without), primary contrasts |
 | `PROTOCOL_v3_trig_control.txt` | 2026-10-25 15:27:35 | trigonometric control HQB-trig, E2 seeds 3–4, Holm family |
 | `PROTOCOL_e3_vindr_prespecified.txt` | 2026-10-30 06:47:56 | E3: four variants trained on radiologist breast masks of VinDr-Mammo (five folds x five seeds), equivalence margin ±0.01 |
+| `PROTOCOL_w1_prespecified.txt` | 2026-11-06 17:56:50 | W1: HQB-UNet, HQB-cls and HQB-trig with a faster-learning four-to-four mapping (E1 setting, seeds 0–4), equivalence margin ±0.01 |
 
 ## Notebooks (`notebooks/`, Google Colab; outputs removed)
 
@@ -43,6 +44,8 @@ Run in this order. Paths at the top of each notebook refer to Google Drive (`MyD
 | `P1_27e_e3_reader2.ipynb` | CPU | reader-2 masks at model resolution and post-hoc reader-2 scores of all E3 runs from the stored probability maps |
 | `P1_30_rule_vs_final.ipynb` | CPU | labelling rule against the final mini-MIAS expert masks |
 | `P1_31_e3_analysis.ipynb` | CPU | prespecified E3 analysis; outputs in `results/e3/` |
+| `P1_32_w1_A.ipynb`, `_B` | T4 GPU | W1 training and evaluation (15 runs; resumable, sessions share the work through lock files; cell 3b checks the new layers before any run) |
+| `P1_33_w1_analysis.ipynb` | CPU | prespecified W1 analysis; outputs in `results/w1/` |
 
 ## Scripts (`scripts/`, Google Colab)
 
