@@ -8,6 +8,6 @@
     }
   ],
   "license": "MIT",
-  "version": "v2.3.0",
+  "version": "v2.3.1",
   "description": "Source code of the manuscript “Does a Quantum Bottleneck Help a U-Net Segment Mammograms? Controlled Comparisons With Parameter-Matched Classical Layers”: the qseg package and all notebooks, scripts, prespecified protocols and statistical analyses (folder paper_v2), including experiment E3 (training on radiologist breast masks of VinDr-Mammo) and experiment W1 (faster-learning four-to-four mapping) with their protocols and aggregate results, and the supplementary document of the manuscript (docs/Supplementary_Material.pdf). No images, masks, weights or patient identifiers are included."
 }

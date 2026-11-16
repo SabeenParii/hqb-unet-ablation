@@ -2,7 +2,9 @@
 
 [![DOI](https://zenodo.org/badge/DOI/10.5281/zenodo.24133022.svg)](https://doi.org/10.5281/zenodo.24133022)
 
-Code for the manuscript *"Does a Quantum Bottleneck Help a U-Net Segment Mammograms? Controlled Comparisons With Parameter-Matched Classical Layers"* (S. Parii, S. Tummala, A. Iqbal, R. Ashraf, F. Aadil).
+Code for the manuscript *"Does a Quantum Bottleneck Help a U-Net Segment Mammograms? Controlled Comparisons With Parameter-Matched Classical Layers"* (S. Parii, A. Iqbal).
+
+**v2.3.1** updates the author list of the manuscript in this README and in the supplementary document.
 
 **v2.3.0** adds the supplementary document of the manuscript ([`docs/Supplementary_Material.pdf`](docs/Supplementary_Material.pdf): supplementary notes, tables and figures, including the verbatim prespecified protocols).
 
