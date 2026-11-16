@@ -2,16 +2,15 @@
 
 [![DOI](https://zenodo.org/badge/DOI/10.5281/zenodo.24133022.svg)](https://doi.org/10.5281/zenodo.24133022)
 
-Code for the manuscript *"A quantum bottleneck in a hybrid U-Net adds no measurable benefit over parameter-matched
-classical layers in breast-region segmentation of mammograms"* (S. Parii, S. Tummala, A. Iqbal, R. Ashraf, F. Aadil).
-Versions up to v1.2 accompany the earlier title *"Parameter-Matched Ablation of a Quantum-Bottleneck U-Net on
-Proxy-Labeled Mammograms"*.
+Code for the manuscript *"Does a Quantum Bottleneck Help a U-Net Segment Mammograms? Controlled Comparisons With Parameter-Matched Classical Layers"* (S. Parii, S. Tummala, A. Iqbal, R. Ashraf, F. Aadil).
+
+**v2.3.0** adds the supplementary document of the manuscript ([`docs/Supplementary_Material.pdf`](docs/Supplementary_Material.pdf): supplementary notes, tables and figures, including the verbatim prespecified protocols).
 
 **v2.2.0** adds experiment W1 (HQB-UNet, HQB-cls and HQB-trig retrained with a faster-learning four-to-four mapping, 15 runs): its prespecified protocol, notebooks and aggregate results ([`paper_v2/results/w1/`](paper_v2/results/w1/README.md)).
 
 **v2.1.0** adds experiment E3 (the four hybrid variants trained on radiologist breast masks of VinDr-Mammo, five-fold cross-validation, 100 runs): its prespecified protocol, notebooks and aggregate results ([`paper_v2/results/e3/`](paper_v2/results/e3/README.md)).
 
-**v2.0.0** adds the folder [`paper_v2/`](paper_v2/README.md) with every notebook and script of the revised manuscript:
+**v2.0.0** adds the folder [`paper_v2/`](paper_v2/README.md) with every notebook and script of the manuscript:
 retraining with and without skip connections (E1, E2), the trigonometric classical control (HQB-trig), the five-seed
 analysis, the code-replacement test and its positive controls, the external sets (DMID, mini-MIAS with expert masks),
 the scoring against two readers' manual outlines, the prespecified protocols with their time stamps, and the statistics,
@@ -58,7 +57,7 @@ qseg/
 scripts/
   severing_test.py      bottleneck-severing test (inference only): replaces the four-value code with the
                         mean training code (const) or a random training image's code (swap)
-paper_v2/               notebooks, scripts, protocols and statistics of the revised manuscript (see its README)
+paper_v2/               notebooks, scripts, protocols and statistics of the manuscript (see its README)
 tests/                  unit tests (data preparation, circuit vs. reference, gradients, statistics;
                         test_base_ansatz.py: Jacobian ranks 20/24 and 88/96)
 ```

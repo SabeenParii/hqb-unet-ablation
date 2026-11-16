@@ -1,8 +1,7 @@
-# Experiments and analyses of the revised manuscript
+# Experiments and analyses of the manuscript
 
-This folder holds every notebook and script behind the results of the revised manuscript
-*"A quantum circuit in a hybrid U-Net adds no measurable benefit over a parameter-matched classical layer in mammogram
-segmentation"*. The models, data preparation, circuit simulation and metrics are the `qseg` package at the top of this
+This folder holds every notebook and script behind the results of the manuscript
+*"Does a Quantum Bottleneck Help a U-Net Segment Mammograms? Controlled Comparisons With Parameter-Matched Classical Layers"*. The models, data preparation, circuit simulation and metrics are the `qseg` package at the top of this
 repository; the notebooks load the same package from a copy in Google Drive (`QSEG_FINAL/code`).
 
 No images, masks, model weights, manual outlines or patient identifiers are included. The hospital mammograms cannot be
@@ -56,7 +55,7 @@ Run in this order. Paths at the top of each notebook refer to Google Drive (`MyD
 | `p1_padding_side_check.py` | image-only check of the padded side |
 | `p1_m2_positive_control.py` | positive controls for the code-replacement test (skip connections gated by the code; the two lowest-resolution skip connections removed) |
 | `p1_m3_robustness.py`, `p1_m3_collect.py`, `m3_stats.py` | five-seed analysis with three checkpoint policies |
-| `p1_m3m4_analysis.py` | inference-only analyses of the earlier revision |
+| `p1_m3m4_analysis.py` | inference-only analyses of an earlier development stage |
 
 ## Statistics, tables and Figure 4 (`analysis/`, local Python)
 
